@@ -1,5 +1,8 @@
 @charset "utf-8";
 @import url("iconfont/iconfont.css");
+* {
+  box-sizing: border-box;
+}
 body,
 ul,
 li,
@@ -63,6 +66,10 @@ a:hover {
 .fr {
   float: right;
 }
+html {
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
 html,
 body {
   width: 100%;
@@ -75,5 +82,106 @@ body {
   .ui-border-t {
     background-position: left top;
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, #e0e0e0), to(#e0e0e0));
+  }
+}
+.border-top-1px {
+  position: relative;
+}
+.border-top-1px:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #eeeeee;
+  content: '';
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.border-bottom-1px {
+  position: relative;
+}
+.border-bottom-1px:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #F5F5F5;
+  content: '';
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.border-left-1px {
+  position: relative;
+}
+.border-left-1px:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-left: 1px solid #eeeeee;
+  content: '';
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.border-1px {
+  position: relative;
+}
+.border-1px:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid;
+  width: 100%;
+  height: 100%;
+  content: '';
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-top-1px:after {
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+  .border-bottom-1px:after {
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+  .border-left-1px:after {
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+  }
+  .border-right-1px:after {
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+  }
+  .border-1px:after {
+    height: 200%;
+    width: 200%;
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .border-top-1px:after {
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+  }
+  .border-bottom-1px:after {
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+  }
+  .border-left-1px:after {
+    -webkit-transform: scaleX(0.33);
+    transform: scaleX(0.33);
+  }
+  .border-right-1px:after {
+    -webkit-transform: scaleX(0.33);
+    transform: scaleX(0.33);
+  }
+  .border-1px:after {
+    height: 300%;
+    width: 300%;
+    -webkit-transform: scale(0.33, 0.33);
+    transform: scale(0.33, 0.33);
   }
 }

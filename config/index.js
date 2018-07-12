@@ -10,11 +10,15 @@ module.exports = {
         // Paths
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-
+        env: require('./dev.env'),
         proxyTable: {
-            '/': {
+            '/example': {
                 target: ' https://www.easy-mock.com/mock/5a113a1d659fd430fc8b0964/example',
-                changeOrigin: true
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/example': ''
+                }
+
             }
         },
 

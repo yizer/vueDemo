@@ -7,7 +7,7 @@ Vue.use(Router)
 var router = new Router({
     mode: 'history',
     routes: [{
-            path: "*", //页面初始路由重定向,防止页面初始化时空白现象
+            path: "/", //页面初始路由重定向,防止页面初始化时空白现象
             redirect: "/login"
         },
         {
@@ -17,11 +17,20 @@ var router = new Router({
         {
             path: '/index',
             component: Index,
-            // children: [{
-            //     path: '/',
-            //     name: '首页',
-            //     component: resolve => require(['../components/index.vue'], resolve)
-            // }]
+            children: [{
+                path: '/',
+                name: '实时直播分析',
+                component: resolve => require(['../components/content/live/live.vue'], resolve)
+            }]
+        },
+        {
+            path: '/account',
+            component: resolve => require(['../components/content/account/a-index.vue'], resolve),
+            children: [{
+                path: '/',
+                name: '帐号设置',
+                component: resolve => require(['../components/content/account/accountSet.vue'], resolve)
+            }]
         }
     ]
 });

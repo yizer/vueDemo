@@ -8,22 +8,26 @@
       <div class="ms-title">星红安全网展示APP</div>
       <div id="ms-login">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" status-icon>
-          <el-form-item prop="username" class="login-input">
-            <el-input v-model="ruleForm.username" placeholder="请输入用户名" auto-complete="off">
-              <template slot="prepend">
-                <i class=" iconfont icon-wode login-icon"></i>
-                <span style="padding-left:0.5rem"> 账户</span>
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="password" class=" login-input-pass">
-            <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')" auto-complete="off">
-              <template slot="prepend">
-                <i class=" iconfont icon-xiugaimima login-icon"></i>
-                <span style="padding-left:0.5rem">密码 </span>
-              </template>
-            </el-input>
-          </el-form-item>
+          <div class="border-1px form-box">
+            <el-form-item prop="username" class="login-input">
+              <el-input v-model="ruleForm.username" placeholder="请输入用户名" auto-complete="off">
+                <template slot="prepend">
+                  <i class=" iconfont icon-wode login-icon"></i>
+                  <span style="padding-left:0.5rem"> 账户</span>
+                </template>
+              </el-input>
+            </el-form-item>
+          </div>
+          <div class="border-1px form-box">
+            <el-form-item prop="password" class=" login-input-pass">
+              <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')" auto-complete="off">
+                <template slot="prepend">
+                  <i class=" iconfont icon-xiugaimima login-icon"></i>
+                  <span style="padding-left:0.5rem">密码 </span>
+                </template>
+              </el-input>
+            </el-form-item>
+          </div>
         </el-form>
       </div>
       <div class="login-btn">
@@ -116,7 +120,7 @@ export default {
   background-position: center;
   .login-content {
     width: 2.65rem;
-    height: 4.2rem;
+    height: 4.9rem;
     margin: 0rem auto;
     color: #fff;
     padding-top: 0.7rem;
@@ -141,8 +145,9 @@ export default {
     #ms-login {
       margin-top: 0.88rem;
       width: 100%;
-      .el-form-item__content {
-        border: 1px solid #7191c4;
+
+      .border-1px:after {
+        border-color: #7191c4;
       }
       .login-input-pass {
         margin-top: 0.22rem;

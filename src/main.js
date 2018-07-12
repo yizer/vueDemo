@@ -23,8 +23,8 @@ Vue.prototype.newAjax = function(params) {
     var that = this;
     var offset = params.offset || 1;
     // mock
-    //var url = "https://www.easy-mock.com/mock/5a0b9be3194c853b8be39a38" + params.url;
-    var url = params.url; // 方面后期统一添加路径
+    // var url = "https://www.easy-mock.com/mock/5a0b9be3194c853b8be39a38" + params.url;
+    var url = "/example" + params.url; // 方面后期统一添加路径
     //var url ="/tiger-mgr/mgr"+params.url;
     var method = params.method || "GET";
     var data = params.data || {};

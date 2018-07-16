@@ -11,6 +11,7 @@ import "./assets/js/libs/jquery.min"
 import "./assets/js/common"
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+
 Vue.use(Mint);
 Vue.use(ElementUI);
 

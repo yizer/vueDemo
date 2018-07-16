@@ -127,8 +127,8 @@ export default {
     .bg {
       background: url("../../assets/images/loginIcon.png") no-repeat center
         center;
-      -webkit-background-size: cover;
-      background-size: cover;
+      -webkit-background-size: contain;
+      background-size: contain;
       width: 1.58rem;
       height: 0.6rem;
       margin: 0 auto;

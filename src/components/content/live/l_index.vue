@@ -1,61 +1,65 @@
 <template>
-    <div class="live-content">
-        <div class="timer">
-            <i class="iconfont icon-quanwang-6"></i>
-            <span>{{nowTime}}</span>
-        </div>
-        <div class="user-show">
-            <ul class="user-list clearfix">
-                <li v-for="(item,key) in userData" :key="key">
-                    <div class="u-top">{{item.number}}</div>
-                    <div class="u-bottom">{{item.label}}</div>
-                </li>
-            </ul>
-            <div class="self-nav">
-                <ul class="clearfix">
-
-                    <li v-for="(item,index) in menus" :key="index" :class="{'active':index ==checkindex }" @click="toggle(index)">
-                        <div class="nav-bg" :style="{ 'background-image': 'url(' + item.bgUrl + ')',}">
-                        </div>
-                        <p>{{item.text}}</p>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="live-table">
-                <div class="t-header">
-                    <ul>
-                        <li class="rank">排名</li>
-                        <li class="channel">频道</li>
-                        <li class="radio">收视率</li>
-                        <li class="count">收视份额</li>
-                        <li class="user">收拾户数</li>
-                    </ul>
-                </div>
-                <div class="t-body">
-
-                    <ul class="clearfix" v-for="(item,index) in tableData" :key="index" :class="'line-'+item.channel.length">
-                        <template>
-                            <li v-if="item.rank > 3" class="rank">{{item.rank}}</li>
-                            <li v-else class="rank">
-                                <div class="rank-bg" :class="'rank-bg-'+item.rank">
-                                </div>
-                            </li>
-                        </template>
-
-                        <li class="channel">
-
-                            <p v-for="(subItem,key) in item.channel" :key="key">{{subItem}}</p>
-
-                        </li>
-                        <li class="radio">{{item.radio}}</li>
-                        <li class="count">{{item.count}}</li>
-                        <li class="user">{{item.user}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <div class="live-content">
+    <div class="timer">
+      <i class="iconfont icon-quanwang-6"></i>
+      <span>{{nowTime}}</span>
     </div>
+    <div class="user-show" ref="userShow">
+      <ul class="user-list clearfix">
+        <li v-for="(item,key) in userData" :key="key">
+          <div class="u-top">{{item.number}}</div>
+          <div class="u-bottom">{{item.label}}</div>
+        </li>
+      </ul>
+      <div class="self-nav">
+        <ul class="clearfix">
+
+          <li v-for="(item,index) in menus" :key="index" :class="{'active':index ==checkindex }" @click="toggle(index)">
+            <div class="nav-bg" :style="{ 'background-image': 'url(' + item.bgUrl + ')',}">
+            </div>
+            <p>{{item.text}}</p>
+          </li>
+
+        </ul>
+      </div>
+      <div class="live-table">
+
+        <div class="t-header" :class="isUp? 'h-fixed': ''">
+          <div class="search-box " v-if="isUp">
+            <input type="text" placeholder="请输入搜索内容">
+          </div>
+          <ul>
+            <li class="rank">排名</li>
+            <li class="channel">频道</li>
+            <li class="radio">收视率</li>
+            <li class="count">收视份额</li>
+            <li class="user">收拾户数</li>
+          </ul>
+        </div>
+        <div class="t-body">
+
+          <ul class="clearfix" v-for="(item,index) in tableData" :key="index" :class="'line-'+item.channel.length">
+            <template>
+              <li v-if="item.rank > 3" class="rank">{{item.rank}}</li>
+              <li v-else class="rank">
+                <div class="rank-bg" :class="'rank-bg-'+item.rank">
+                </div>
+              </li>
+            </template>
+
+            <li class="channel">
+
+              <p v-for="(subItem,key) in item.channel" :key="key">{{subItem}}</p>
+
+            </li>
+            <li class="radio">{{item.radio}}</li>
+            <li class="count">{{item.count}}</li>
+            <li class="user">{{item.user}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import moment from "moment";
@@ -63,7 +67,8 @@ export default {
   name: "live",
   data() {
     return {
-      nowTime: new Date(), // 当前时间
+      nowTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"), // 当前时间
+      isUp: false, // 滚动监听
       timer: null, // 定时器名称
       // 用户数循环内容
       userData: [
@@ -180,6 +185,69 @@ export default {
           radio: "2.2418%",
           count: "8.0522%",
           user: 29593
+        },
+        {
+          rank: 4,
+          channel: ["山东高清卫视", "虎妈猫爸"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
+        },
+        {
+          rank: 5,
+          channel: ["山东综艺", "明星宝贝"],
+          radio: "2.2418%",
+          count: "8.0522%",
+          user: 29593
         }
       ]
     };
@@ -194,6 +262,25 @@ export default {
     toggle(index) {
       this.checkindex = index;
     }
+  },
+  mounted() {
+    // 通过$refs获取dom元素
+    this.box = this.$refs.userShow;
+    var height = $(".t-header").offset().top - $(".user-show").offset().top;
+    console.log(height);
+    // 监听这个dom的scroll事件
+    this.box.addEventListener(
+      "scroll",
+      () => {
+        console.log(" scroll " + this.$refs.userShow.scrollTop);
+        if (this.$refs.userShow.scrollTop >= height) {
+          this.isUp = true;
+        } else {
+          this.isUp = false;
+        }
+      },
+      false
+    );
   },
   beforeDestroy() {
     clearInterval(this.timer);
@@ -212,6 +299,10 @@ export default {
   .user-show {
     width: 100%;
     padding: 0.12rem 0.1rem 0.15rem;
+    overflow: auto;
+    height: 5.88rem;
+    padding-bottom: 0.5rem;
+    position: relative;
     .user-list {
       display: flex;
       justify-content: space-between;
@@ -247,7 +338,7 @@ export default {
       -webkit-box-shadow: 0px 3px 3px #c8c8c8;
       -moz-box-shadow: 0px 3px 3px #c8c8c8;
       box-shadow: 0px 3px 3px #c8c8c8;
-      padding-top: 0.12rem;
+      padding-top: 0.26rem;
       margin-bottom: 0.16rem;
       li {
         width: 20%;
@@ -277,6 +368,23 @@ export default {
   .live-table {
     width: 100%;
     padding: 0 0.12rem;
+    .search-box {
+      width: 90%;
+      height: 0.5rem;
+      color: #000;
+      background-color: #fff;
+      line-height: 0.5rem;
+      input {
+        width: 100%;
+        height: 0.3rem;
+        line-height: 0.3rem;
+        font-size: 0.15rem;
+        text-indent: 1em;
+        border-radius: 0.05rem;
+        margin: 0 auto;
+        background-color: #ededed;
+      }
+    }
     .rank {
       width: 0.46rem;
     }
@@ -295,7 +403,7 @@ export default {
     .t-header {
       width: 100%;
       color: #fff;
-      background: #519ee2;
+
       height: 0.2rem;
       border-radius: 0.1rem;
       li {
@@ -303,13 +411,23 @@ export default {
         height: 0.2rem;
         line-height: 0.2rem;
         font-size: 0.12rem;
+        background: #519ee2;
+      }
+    }
+    .h-fixed {
+      position: fixed;
+      width: 100%;
+      top: 1.16rem;
+      z-index: 2;
+      border-radius: 0;
+      .user {
+        width: calc(90% - 3.18rem);
       }
     }
     .t-body {
       width: 100%;
       height: 3.24rem;
-      overflow-x: hidden;
-      overflow-y: scroll;
+
       border-bottom-right-radius: 0.04rem;
       border-bottom-left-radius: 0.04rem;
       -webkit-box-shadow: 0px 2px 2px #c8c8c8;
@@ -320,6 +438,9 @@ export default {
       }
       ul:nth-child(even) {
         background: #ededed;
+      }
+      ul:nth-child(odd) {
+        background: #fff;
       }
       .line-1 {
         li {

@@ -16,31 +16,32 @@
     </div>
     <footer>
       <ul class="footer-nav border-top-1px">
-        <li :class="$route.path == '/index' ?'active':''">
+        <li :class="$route.path == '/index' ?'active':''" @click="$router.push('/index')">
           <div class="icon-box">
             <i class="iconfont icon-trend_up"></i>
           </div>
           <p>实时分析</p>
         </li>
-        <li :class="$route.path == '/user' ?'active':''">
-          <div class="icon-box">
-            <i class="iconfont icon-quanwang-4"></i>
-          </div>
-          <p>全网用户</p>
-        </li>
-        <li :class="$route.path == '/history' ?'active':''">
+        <li :class="$route.path == '/history' ?'active':''" @click="$router.push('/history')">
           <div class="icon-box">
             <i class="iconfont icon-quanwang-6"></i>
           </div>
           <p>历史用户</p>
         </li>
-        <li :class="$route.path == '/sevenDay' ?'active':''">
+        <li :class="$route.path == '/user' ?'active':''" @click="$router.push('/user')">
+          <div class="icon-box">
+            <i class="iconfont icon-quanwang-4"></i>
+          </div>
+          <p>全网用户</p>
+        </li>
+
+        <li :class="$route.path == '/sevenDay' ?'active':''" @click="$router.push('/sevenDay')">
           <div class="icon-box">
             <i class="iconfont icon-quanwang-1"></i>
           </div>
           <p>7天曲线</p>
         </li>
-        <li :class="$route.path == '/week' ?'active':''">
+        <li :class="$route.path == '/week' ?'active':''" @click="$router.push('/week')">
           <div class="icon-box">
             <i class="iconfont icon-quanwang-"></i>
           </div>
@@ -49,6 +50,7 @@
 
       </ul>
     </footer>
+
   </div>
 </template>
 

@@ -121,6 +121,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 2;
   background-color: #fff;
   .border-top-1px:after {
     border-color: #cdcdcf;
@@ -128,6 +129,7 @@ footer {
   .footer-nav {
     height: 0.9rem;
     width: 100%;
+    background-color: #fff;
     li {
       height: 0.6rem;
       float: left;

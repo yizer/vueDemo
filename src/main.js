@@ -11,10 +11,10 @@ import "./assets/js/libs/jquery.min"
 import "./assets/js/common"
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'swiper/dist/css/swiper.min.css';
 
 Vue.use(Mint);
 Vue.use(ElementUI);
-
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios;

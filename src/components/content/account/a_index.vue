@@ -100,7 +100,8 @@ export default {
   width: 100%;
   height: 100%;
   background: url("../../../assets/images/accout_bg.png") no-repeat top center;
-  background-size: contain;
+  background-size: cover;
+
   .account-header {
     padding-top: 0.42rem;
     height: 0.72rem;
@@ -142,11 +143,11 @@ export default {
   .content {
     .logo {
       img {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1rem;
+        height: 1rem;
       }
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1rem;
+      height: 1rem;
       margin: 0.3rem auto;
     }
     .some-info {
@@ -207,6 +208,7 @@ export default {
       width: 100%;
       color: #fffdff;
       background-color: transparent;
+
       .border-top-1px:after {
         border-color: #cdcdcf;
       }

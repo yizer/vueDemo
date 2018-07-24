@@ -12,7 +12,10 @@
       </div>
     </header>
     <div class="content">
-      <router-view class="main-content"></router-view>
+      <keep-alive>
+        <router-view class="main-content"></router-view>
+      </keep-alive>
+
     </div>
     <footer>
       <ul class="footer-nav border-top-1px">

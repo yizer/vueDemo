@@ -5,12 +5,7 @@
       <span>{{nowTime}}</span>
     </div>
     <div class="user-show" ref="userShow">
-      <ul class="user-list clearfix">
-        <li v-for="(item,key) in userData" :key="key">
-          <div class="u-top">{{item.number}}</div>
-          <div class="u-bottom">{{item.label}}</div>
-        </li>
-      </ul>
+      <UserList></UserList>
       <div class="self-nav">
         <ul class="clearfix">
 
@@ -63,40 +58,17 @@
 </template>
 <script>
 import moment from "moment";
+import UserList from "../../common/UserList.vue";
 export default {
   name: "live",
+  components: {
+    UserList
+  },
   data() {
     return {
       nowTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"), // 当前时间
       isUp: false, // 滚动监听
       timer: null, // 定时器名称
-      // 用户数循环内容
-      userData: [
-        {
-          number: "1,316,149",
-          label: "累积用户数"
-        },
-        {
-          number: "1,316,149",
-          label: "累积用户数"
-        },
-        {
-          number: "1,316,149",
-          label: "累积用户数"
-        },
-        {
-          number: "1,316,149",
-          label: "累积用户数"
-        },
-        {
-          number: "1,316,149",
-          label: "累积用户数"
-        },
-        {
-          number: "1,316,149",
-          label: "累积用户数"
-        }
-      ],
       checkindex: 0, // 当前用户点击局部导航index
       //导航内容
       menus: [
@@ -303,32 +275,6 @@ export default {
     height: 5.88rem;
     padding-bottom: 0.5rem;
     position: relative;
-    .user-list {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.16rem;
-      li {
-        width: 16%;
-        background-color: #fff;
-        border-radius: 0.02rem;
-        height: 0.46rem;
-      }
-      .u-top {
-        height: 0.28rem;
-        line-height: 0.28rem;
-        color: #f79738;
-        font-size: 0.11rem;
-        font-weight: 500;
-        width: 100%;
-      }
-      .u-bottom {
-        height: 0.14rem;
-        line-height: 0.14rem;
-        color: #666;
-        font-size: 0.12rem;
-        width: 100%;
-      }
-    }
     .self-nav {
       text-align: center;
       width: 100%;
@@ -360,6 +306,7 @@ export default {
         &.active {
           p {
             color: #f79738;
+            transition: 0.2s all linear;
           }
         }
       }

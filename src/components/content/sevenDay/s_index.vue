@@ -33,24 +33,34 @@
           </ul>
         </div>
         <div class="t-body">
-          <ul class="clearfix" v-for="(item,index) in tableData" :key="index" :class="'line-'+item.channel.length">
-            <template>
-              <li v-if="item.rank > 3" class="rank">{{item.rank}}</li>
-              <li v-else class="rank">
-                <div class="rank-bg" :class="'rank-bg-'+item.rank">
-                </div>
+          <template v-for="(item,index) in tableData" v-if="item.channel">
+            <ul class="clearfix" :key="index" :class="'line-'+item.channel.length" @click="openBar(item,index)">
+              <template>
+                <li v-if="item.rank > 3" class="rank">{{item.rank}}</li>
+                <li v-else class="rank">
+                  <div class="rank-bg" :class="'rank-bg-'+item.rank">
+                  </div>
+                </li>
+              </template>
+
+              <li class="channel">
+
+                <p v-for="(subItem,key) in item.channel" :key="key">{{subItem}}</p>
+
               </li>
-            </template>
+              <li class="radio">{{item.radio}}</li>
+              <li class="count">{{item.count}}</li>
+              <li class="user">{{item.user}}</li>
+            </ul>
+          </template>
+          <template v-else>
+            <el-collapse-transition>
+              <div class="bar-box" v-show="isBarShow">
+                <Bar></Bar>
+              </div>
+            </el-collapse-transition>
 
-            <li class="channel">
-
-              <p v-for="(subItem,key) in item.channel" :key="key">{{subItem}}</p>
-
-            </li>
-            <li class="radio">{{item.radio}}</li>
-            <li class="count">{{item.count}}</li>
-            <li class="user">{{item.user}}</li>
-          </ul>
+          </template>
         </div>
       </div>
       <div class="cover" v-if="isCover" @click="isCover= false">
@@ -60,9 +70,13 @@
   </div>
 </template>
 <script>
-import moment from "moment";
+import moment, { now } from "moment";
+import Bar from "../../common/Bar";
 export default {
   name: "live",
+  components: {
+    Bar
+  },
   data() {
     return {
       nowTime: "",
@@ -72,6 +86,8 @@ export default {
       isUp: false, // 滚动监听
       isCover: false,
       week: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+      isBarShow: false, // bar组件是否展示
+      oldIndex: 1000, // 当前点击的组件
       // 用户数循环内容
 
       // 表单数据
@@ -97,6 +113,7 @@ export default {
           count: "8.0522%",
           user: 29593
         },
+
         {
           rank: 4,
           channel: ["山东高清卫视", "虎妈猫爸"],
@@ -113,90 +130,34 @@ export default {
         },
         {
           rank: 6,
-          channel: ["山东综艺"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 6,
-          channel: ["山东综艺"],
+          channel: ["山东综艺", "明星宝贝"],
           radio: "2.2418%",
           count: "8.0522%",
           user: 29593
         },
         {
           rank: 7,
-          channel: ["山东综艺"],
+          channel: ["山东综艺", "明星宝贝"],
           radio: "2.2418%",
           count: "8.0522%",
           user: 29593
         },
         {
           rank: 8,
-          channel: ["山东综艺"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 4,
-          channel: ["山东高清卫视", "虎妈猫爸"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 5,
           channel: ["山东综艺", "明星宝贝"],
           radio: "2.2418%",
           count: "8.0522%",
           user: 29593
         },
         {
-          rank: 5,
+          rank: 9,
           channel: ["山东综艺", "明星宝贝"],
           radio: "2.2418%",
           count: "8.0522%",
           user: 29593
         },
         {
-          rank: 5,
-          channel: ["山东综艺", "明星宝贝"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 5,
-          channel: ["山东综艺", "明星宝贝"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 5,
-          channel: ["山东综艺", "明星宝贝"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 5,
-          channel: ["山东综艺", "明星宝贝"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 99,
-          channel: ["山东综艺", "明星宝贝"],
-          radio: "2.2418%",
-          count: "8.0522%",
-          user: 29593
-        },
-        {
-          rank: 100,
+          rank: 10,
           channel: ["山东综艺", "明星宝贝"],
           radio: "2.2418%",
           count: "8.0522%",
@@ -213,6 +174,30 @@ export default {
       this.isCover = true;
       this.$refs.datePicker.focus();
     },
+    // 打开图表
+    openBar(item, index) {
+      // oldIndex 记录插入的位置
+      if (index + 1 == this.oldIndex) {
+        this.isBarShow = !this.isBarShow;
+      } else {
+        // 图表在当前点击的后面,获取的index值为正确值
+        this.tableData.splice(this.oldIndex, 1);
+        this.oldIndex = index < this.oldIndex ? index + 1 : index;
+        this.tableData.splice(this.oldIndex, 0, { data: {} }); // 插入元素
+        this.isBarShow = true;
+        // if (index < this.oldIndex) {
+        //   this.oldIndex = index + 1; // 计算插入位置
+        //   this.tableData.splice(this.oldIndex, 0, { data: {} }); // 插入元素
+        //   this.isBarShow = true;
+        // } else {
+        //   // 图表在当前点击的位置前面, 获取的index出现问题,index值应为index-1
+        //   this.oldIndex = index; // 插入位置正确计算
+        //   this.tableData.splice(this.oldIndex, 0, { data: {} });
+        //   this.isBarShow = true;
+        // }
+      }
+      console.log(this.tableData);
+    },
     formateDate() {
       this.isCover = false;
       this.nowYear = moment(this.nowTime).format("YYYY"); // 当前时间
@@ -228,7 +213,6 @@ export default {
     this.box.addEventListener(
       "scroll",
       () => {
-        console.log(" scroll " + this.$refs.userShow.scrollTop);
         if (this.$refs.userShow.scrollTop >= height) {
           this.isUp = true;
         } else {
@@ -319,7 +303,6 @@ export default {
     .t-body {
       width: 100%;
       height: 3.04rem;
-
       border-bottom-right-radius: 0.04rem;
       border-bottom-left-radius: 0.04rem;
       -webkit-box-shadow: 0px 2px 2px #c8c8c8;
@@ -390,6 +373,11 @@ export default {
         .rank-bg-3 {
           background: url("../../../assets/images/rank-bg-3.png") no-repeat;
         }
+      }
+      .bar-box {
+        width: 100%;
+        height: 2.8rem;
+        padding-bottom: 0.15rem;
       }
     }
   }

@@ -12,7 +12,8 @@
       <LineChart></LineChart>
     </div>
     <div class="item-list">
-      <div class="swiper-container">
+      <!-- <div class="swiper-container">
+
         <div class="swiper-wrapper">
           <div class="swiper-slide border-1px" v-for="(item,index) in itemList" :key="index" @click="swiperSelect(item)">
             <div class="circle">
@@ -24,6 +25,22 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <div class="swiper-wrapper">
+        <swiper :options="swiperOption" ref="mySwiper">
+          <!-- slides -->
+          <swiper-slide class="swiper-slide border-1px" v-for="(item,index) in itemList" :key="index">
+            <div @click="swiperSelect(item)">
+              <div class="circle">
+                <MyCircle :myCircle="'myCircle'+ index" :circleData="item"></MyCircle>
+              </div>
+              <div class="c-info">
+                <p>{{item.title}}</p>
+                <p>{{item.number | toThousands}}</p>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
     </div>
   </div>
@@ -31,14 +48,28 @@
 </template>
 <script>
 // 本页面折线数据联动未实现,带数据动态时候实现
-import LineChart from "../../common/line";
-import MyCircle from "../../common/circle.vue";
-import Swiper from "swiper";
+import LineChart from "../../common/Line";
+import MyCircle from "../../common/Circle.vue";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
 export default {
   name: "user",
   components: {
     LineChart,
-    MyCircle
+    MyCircle,
+    swiper,
+    swiperSlide
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper;
+    }
+  },
+  mounted() {
+    // current swiper instance
+    // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
+    console.log("this is current swiper instance object", this.swiper);
+    // this.swiper.slideTo(3, 1000, false);
   },
   data() {
     return {
@@ -47,6 +78,18 @@ export default {
         english: "Total Network User",
         number: "6488721",
         isUp: true
+      },
+      swiperOption: {
+        loop: false,
+        mode: "horizontal",
+        freeMode: true, // 滑动不贴边
+        // touchRatio: 0.5,
+        // longSwipesRatio: 0.1,
+        // followFinger: false, //如设置为false，手指滑动时slide不会动，当你释放时slide才会切换。
+        threshold: 50, // 临界值单位为px，如果触屏距离小于该值滑块不会运动
+        slidesPerView: "auto",
+        observer: true, //修改swiper自己或子元素时，自动初始化swiper
+        observeParents: true //修改swiper的父元素时，自动初始化swiper
       },
       itemList: [
         {
@@ -102,27 +145,13 @@ export default {
   },
   created() {},
   methods: {
-    swiperGo() {
-      var mySwiper = new Swiper(".swiper-container", {
-        loop: false,
-        mode: "horizontal",
-        freeMode: true, // 滑动不贴边
-        // touchRatio: 0.5,
-        // longSwipesRatio: 0.1,
-        // followFinger: false, //如设置为false，手指滑动时slide不会动，当你释放时slide才会切换。
-        threshold: 50, // 临界值单位为px，如果触屏距离小于该值滑块不会运动
-        slidesPerView: "auto",
-        observer: true, //修改swiper自己或子元素时，自动初始化swiper
-        observeParents: true //修改swiper的父元素时，自动初始化swiper
-      });
-    },
     swiperSelect(item) {
       this.nowTitle = item;
     }
   },
-  mounted() {
-    this.swiperGo();
-  },
+  // mounted() {
+  //   this.swiperGo();
+  // },
   filters: {
     toThousands: function(num) {
       var num = (num || 0).toString(),

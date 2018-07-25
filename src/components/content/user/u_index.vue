@@ -30,7 +30,7 @@
         <swiper :options="swiperOption" ref="mySwiper">
           <!-- slides -->
           <swiper-slide class="swiper-slide border-1px" v-for="(item,index) in itemList" :key="index">
-            <div @click="swiperSelect(item)">
+            <div>
               <div class="circle">
                 <MyCircle :myCircle="'myCircle'+ index" :circleData="item"></MyCircle>
               </div>
@@ -52,6 +52,7 @@ import LineChart from "../../common/Line";
 import MyCircle from "../../common/Circle.vue";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+let vm = null;
 export default {
   name: "user",
   components: {
@@ -89,7 +90,16 @@ export default {
         threshold: 50, // 临界值单位为px，如果触屏距离小于该值滑块不会运动
         slidesPerView: "auto",
         observer: true, //修改swiper自己或子元素时，自动初始化swiper
-        observeParents: true //修改swiper的父元素时，自动初始化swiper
+        observeParents: true, //修改swiper的父元素时，自动初始化swiper
+        on: {
+          click: function() {
+            // 这里有坑，需要注意的是：this 指向的是 swpier 实例，而不是当前的 vue， 因此借助 vm，来调用 methods 里的方法
+            // console.log(this); // -> Swiper
+            // 当前活动块的索引，与activeIndex不同的是，在loop模式下不会将 复制的块 的数量计算在内。
+
+            vm.swiperSelect(this.clickedIndex);
+          }
+        }
       },
       itemList: [
         {
@@ -143,10 +153,13 @@ export default {
       ]
     };
   },
-  created() {},
+  created() {
+    vm = this;
+  },
   methods: {
-    swiperSelect(item) {
-      this.nowTitle = item;
+    swiperSelect(index) {
+      console.log(index);
+      this.nowTitle = this.itemList[index];
     }
   },
   // mounted() {

@@ -5,7 +5,7 @@
     <div class="login-content">
       <div class="bg">
       </div>
-      <div class="ms-title">星红安全网展示APP</div>
+      <div class="ms-title">全网展示APP</div>
       <div id="ms-login">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" status-icon>
           <div class="border-1px form-box">
